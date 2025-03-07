@@ -1,0 +1,48 @@
+-- Load UI Library
+local Library = {}
+
+-- Function to create the UI window
+function Library:Window(options)
+    options.text = options.text or "NEVERLOSE"
+
+    -- Create ScreenGui
+    local SG = Instance.new("ScreenGui")
+    SG.Parent = game.CoreGui
+    SG.Name = "Neverlose"
+
+    -- Main UI Frame
+    local Body = Instance.new("Frame")
+    Body.Name = "Body"
+    Body.Parent = SG
+    Body.AnchorPoint = Vector2.new(0.5, 0.5)
+    Body.BackgroundColor3 = Color3.fromRGB(9, 8, 13)
+    Body.Position = UDim2.new(0.5, 0, 0.5, 0)
+    Body.Size = UDim2.new(0, 658, 0, 516)
+
+    -- Avatar Image
+    local AvatarImage = Instance.new("ImageLabel")
+    AvatarImage.Name = "AvatarImage"
+    AvatarImage.Parent = Body
+    AvatarImage.BackgroundTransparency = 1.0
+    AvatarImage.Position = UDim2.new(0, 10, 1, -70) -- Bottom-left corner
+    AvatarImage.Size = UDim2.new(0, 50, 0, 50)
+    AvatarImage.Image = "https://www.roblox.com/headshot-thumbnail/image?userId=" .. game.Players.LocalPlayer.UserId .. "&width=150&height=150&format=png"
+
+    -- Expiration Date Label
+    local ExpirationDateLabel = Instance.new("TextLabel")
+    ExpirationDateLabel.Name = "ExpirationDateLabel"
+    ExpirationDateLabel.Parent = Body
+    ExpirationDateLabel.BackgroundTransparency = 1.0
+    ExpirationDateLabel.Position = UDim2.new(0, 70, 1, -50)
+    ExpirationDateLabel.Size = UDim2.new(0, 200, 0, 20)
+    ExpirationDateLabel.Font = Enum.Font.Gotham
+    ExpirationDateLabel.Text = "Expires: 01.01.2026"
+    ExpirationDateLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    ExpirationDateLabel.TextSize = 14
+    ExpirationDateLabel.TextXAlignment = Enum.TextXAlignment.Left
+
+    return Body
+end
+
+-- Example Usage
+local MainUI = Library:Window({text = "My UI"})
