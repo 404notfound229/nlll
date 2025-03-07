@@ -1,48 +1,87 @@
--- Load UI Library
-local Library = {}
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/404notfound229/testnl/refs/heads/main/nl"))()
+-- Toggle UI: Library:Toggle()
 
--- Function to create the UI window
-function Library:Window(options)
-    options.text = options.text or "NEVERLOSE"
+local Window = Library:Window({
+    text = "Window"
+})
 
-    -- Create ScreenGui
-    local SG = Instance.new("ScreenGui")
-    SG.Parent = game.CoreGui
-    SG.Name = "Neverlose"
+local TabSection = Window:TabSection({
+    text = "TabSection"
+})
 
-    -- Main UI Frame
-    local Body = Instance.new("Frame")
-    Body.Name = "Body"
-    Body.Parent = SG
-    Body.AnchorPoint = Vector2.new(0.5, 0.5)
-    Body.BackgroundColor3 = Color3.fromRGB(9, 8, 13)
-    Body.Position = UDim2.new(0.5, 0, 0.5, 0)
-    Body.Size = UDim2.new(0, 658, 0, 516)
+local Tab = TabSection:Tab({
+    text = "Tab",
+    icon = "rbxassetid://7999345313",
+})
 
-    -- Avatar Image
-    local AvatarImage = Instance.new("ImageLabel")
-    AvatarImage.Name = "AvatarImage"
-    AvatarImage.Parent = Body
-    AvatarImage.BackgroundTransparency = 1.0
-    AvatarImage.Position = UDim2.new(0, 10, 1, -70) -- Bottom-left corner
-    AvatarImage.Size = UDim2.new(0, 50, 0, 50)
-    AvatarImage.Image = "https://www.roblox.com/headshot-thumbnail/image?userId=" .. game.Players.LocalPlayer.UserId .. "&width=150&height=150&format=png"
+local Section = Tab:Section({
+    text = "Section"
+})
 
-    -- Expiration Date Label
-    local ExpirationDateLabel = Instance.new("TextLabel")
-    ExpirationDateLabel.Name = "ExpirationDateLabel"
-    ExpirationDateLabel.Parent = Body
-    ExpirationDateLabel.BackgroundTransparency = 1.0
-    ExpirationDateLabel.Position = UDim2.new(0, 70, 1, -50)
-    ExpirationDateLabel.Size = UDim2.new(0, 200, 0, 20)
-    ExpirationDateLabel.Font = Enum.Font.Gotham
-    ExpirationDateLabel.Text = "Expires: 01.01.2026"
-    ExpirationDateLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-    ExpirationDateLabel.TextSize = 14
-    ExpirationDateLabel.TextXAlignment = Enum.TextXAlignment.Left
+Section:Button({
+    text = "Button",
+    callback = function()
+        print("Clicked button")
+    end,
+})
 
-    return Body
-end
+Section:Toggle({
+    text = "Toggle",
+    state = false, -- Default boolean
+    callback = function(boolean)
+        print("Toggle current: ",boolean)
+    end
+})
 
--- Example Usage
-local MainUI = Library:Window({text = "My UI"})
+Section:Slider({
+    text = "Slider",
+    min = 10,
+    max = 100,
+    -- [[Float = 0,]] Idk what it does
+    callback = function(number)
+        print(number)
+    end
+})
+
+Section:Dropdown({
+    text = "Dropdown",
+    list = {"Apple", "Banana","Coconut"},
+    default = "Apple",
+    callback = function(String)
+        print(String)
+    end
+})
+
+Section:Textbox({
+    text = "Textbox",
+    value = "Default",
+    callback = function(String)
+        print(String)
+    end
+})
+
+Section:Colorpicker({
+    text = "Colorpicker",
+    color = Color3.new(1,1,1),
+    callback = function(HSV)
+        print(HSV)
+    end
+})
+
+--[[
+    blacklisted keybind:
+        Return
+        Space
+        Tab
+        W,A,S,D,I,O
+        Unknown
+]]
+
+Section:Keybind({
+    text = "Keybind",
+    default = Enum.KeyCode.Z,
+    callback = function(defaultBind)
+        print("Triggered keybind")
+        print(defaultBind)
+    end
+})
